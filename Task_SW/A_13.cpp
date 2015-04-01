@@ -112,8 +112,6 @@ int main()
 					//list[i] = list[j];
 			//++f;*/
 		
-	
-
 	std::cout<<countCube;
 	
 	return 0;
