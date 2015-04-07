@@ -30,6 +30,12 @@ Output format
 #include <vector>
 #include <map>
 #include <string>
+//#include <random>
+#include <algorithm>
+#include <time.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 
 
 
@@ -46,33 +52,90 @@ public:
 	{};
 
 	City(string s): 
-		Name("s")
+		Name(s)
 	{};
 };
 
+int func(map <string, City*> &M);
 
 int main()
 {
 	map <string, City*> graph;
 	int M, N, value;
 	string s, s1;
-
+	
 	cin >> N >> M;
 
 	for(int i = 0; i < N; ++i)
 	{
 		cin >> s;
 		graph.insert(pair<string, City*>(s, new City(s)));
-
 	};
+
 	for (int i = 0; i < M; ++i)
 	{
 		cin >> s >> s1 >> value;
-		auto it = graph.find(s);
-
-		graph[s]->neibs.push_back(pair<City *, int>(graph[s1], value));
+		graph[s]->neibs.push_back(pair<City *, int> (graph[s1], value));
 	};
+	
+	cout << func(graph) << endl;
+
 
 
 return 0;
+
+};
+
+int func(map <string, City*> &M)
+{
+	vector <pair<int,int> > temp;
+	vector <int> result;
+	for(int i = 0; i < 979; ++i)
+	{
+		temp.push_back(pair <int, int> (0, 0));
+	}
+	
+	string start = "Kiev";
+	string end = "Kingston";
+	srand ((unsigned) time(NULL));
+		for(int i = 0; i < 979; ++i)
+		{
+			
+			start = "Kiev";
+			/*random_device rd;
+    		mt19937 gen(rd());
+			uniform_int_distribution<> dis(1, M[start]->neibs.size());
+			int j = dis(gen);*/
+			
+			int j = rand() % M[start]->neibs.size() + 1;
+
+			do
+			{
+				if(M[start]->neibs[j - 1].second > temp[i].first)
+				{
+					temp[i].second = temp[i].first;
+					temp[i].first = M[start]->neibs[j - 1].second;
+				}
+				else if (M[start]->neibs[j - 1].second > temp[i].second)
+				{
+					temp[i].second = M[start]->neibs[j - 1].second;
+				}
+
+				start = M[start]->neibs[j - 1].first->Name;
+
+				//srand (time(NULL));
+				j = rand() % M[start]->neibs.size() + 1;
+				
+			}while((start == end) == 0); //M[start]->neibs[j - 1].first->Name
+
+		}
+	
+	for(int i = 0; i < 979; ++i)
+	{
+		result.push_back(temp[i].first + temp[i].second);
+	};
+	
+	sort(result.begin(),result.end());
+	
+	return result[0];
 }
