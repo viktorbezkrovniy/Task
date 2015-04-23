@@ -3,23 +3,23 @@
 int main() 
 { 
  
-	int  k,countCube = 0;
-	int* list;
+	long long  k,countCube = 0;
+	long long* list;
 
 	std::cin >> k;
 	
-	list = new int[k];
+	list = new long long[k];
 	
 	for(int i = 0; i < k; ++i)
 	{ 
-		int e;
+		long long e;
 		std::cin >> e;
 		list[i] = e;	
 	}
 
 	for(int i = 1, j = 0; i < k; ++i, ++j )
 	{ 
-		int dif = std::abs(list[j] - (list[i]));
+		long long dif = std::abs(list[j] - (list[i]));
 		if (dif > 1)
 		{
 			dif--;
@@ -30,7 +30,7 @@ int main()
 			   int r = j;
 				while(r > 0)						
 				{
-					int dif = std::abs(list[r-1] - (list[r]));
+					long long dif = std::abs(list[r-1] - (list[r]));
 					if (dif > 1)
 					{
 						dif--;
@@ -51,7 +51,7 @@ int main()
 
 		}
 	}
-/*	for(int i = k-3, j = k-2; i >= 0; --i, --j)
+/*	for(int i = k-3, j = k-2; i >= 0; --i, --j) // temp
 	{
 		int dif = std::abs(list[j] - (list[i]));
 		if (dif > 1)
@@ -110,7 +110,7 @@ int main()
 				 list[j]--; 
 			else list[i]--;
 					//list[i] = list[j];
-			//++f;*/
+			//++f;												temp*/
 		
 	std::cout<<countCube;
 	
